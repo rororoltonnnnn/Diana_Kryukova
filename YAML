@@ -1,0 +1,158 @@
+openapi: 3.0.0
+info:
+  title: Car API
+  version: 1.0.0
+  description: Simple API to manage cars
+servers:
+  - url: http://localhost:3000
+    description: Local server
+tags:
+  - name: car
+    description: Operations about cars
+paths:
+  /cars:
+    get:
+      tags:
+        - car
+      summary: Get all cars
+      responses:
+        '200':
+          description: List of cars
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Car'
+    post:
+      tags:
+        - car
+      summary: Add a new car
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Car'
+      responses:
+        '201':
+          description: Car created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+
+  /cars/{carId}:
+    get:
+      tags:
+        - car
+      summary: Get a car by ID
+      parameters:
+        - name: carId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Car found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+        '404':
+          description: Car not found
+    put:
+      tags:
+        - car
+      summary: Replace a car by ID
+      parameters:
+        - name: carId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Car'
+      responses:
+        '200':
+          description: Car replaced
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+    patch:
+      tags:
+        - car
+      summary: Update a car by ID
+      parameters:
+        - name: carId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Car'
+      responses:
+        '200':
+          description: Car updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+    delete:
+      tags:
+        - car
+      summary: Delete a car by ID
+      parameters:
+        - name: carId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Car deleted
+
+components:
+  schemas:
+    Car:
+      type: object
+      required:
+        - ID
+        - VIN
+        - GOS_number
+        - mark
+        - model
+        - year
+        - user_ID
+      properties:
+        ID:
+          type: integer
+          example: 1
+        VIN:
+          type: string
+          example: "X12345ABC67890YZ"
+        GOS_number:
+          type: string
+          example: "A123BC77"
+        mark:
+          type: string
+          example: "Toyota"
+        model:
+          type: string
+          example: "Camry"
+        year:
+          type: integer
+          example: 2021
+        user_ID:
+          type: integer
+          example: 101
