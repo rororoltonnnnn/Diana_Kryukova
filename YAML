@@ -5,16 +5,16 @@ info:
   description: Simple API to manage cars
 servers:
   - url: http://localhost:3000
-    description: Local server
+    description: Local server  #  наш тестовый сервер
 tags:
   - name: car
-    description: Operations about cars
+    description: Operations about cars  #  группируем все методы по машинам
 paths:
   /cars:
     get:
       tags:
         - car
-      summary: Get all cars
+      summary: Get all cars  #  получаем список всех машин
       responses:
         '200':
           description: List of cars
@@ -23,20 +23,20 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Car'
+                  $ref: '#/components/schemas/Car'  #  возвращаем массив Car
     post:
       tags:
         - car
-      summary: Add a new car
+      summary: Add a new car  # добавляем новую машину
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Car'
+              $ref: '#/components/schemas/Car'  # принимаем объект Car
       responses:
         '201':
-          description: Car created
+          description: Car created  # 201 для успешного создания
           content:
             application/json:
               schema:
@@ -46,13 +46,13 @@ paths:
     get:
       tags:
         - car
-      summary: Get a car by ID
+      summary: Get a car by ID  # получаем одну машину по ID
       parameters:
         - name: carId
           in: path
           required: true
           schema:
-            type: integer
+            type: integer  # ID должен быть числом
       responses:
         '200':
           description: Car found
@@ -61,11 +61,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Car'
         '404':
-          description: Car not found
+          description: Car not found  # ← если машины нет
     put:
       tags:
         - car
-      summary: Replace a car by ID
+      summary: Replace a car by ID  # полная замена машины
       parameters:
         - name: carId
           in: path
@@ -81,14 +81,10 @@ paths:
       responses:
         '200':
           description: Car replaced
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Car'
     patch:
       tags:
         - car
-      summary: Update a car by ID
+      summary: Update a car by ID  # частичное обновление
       parameters:
         - name: carId
           in: path
@@ -104,14 +100,10 @@ paths:
       responses:
         '200':
           description: Car updated
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Car'
     delete:
       tags:
         - car
-      summary: Delete a car by ID
+      summary: Delete a car by ID  # удаляем машину
       parameters:
         - name: carId
           in: path
@@ -120,7 +112,7 @@ paths:
             type: integer
       responses:
         '204':
-          description: Car deleted
+          description: Car deleted  # 204 = нет содержимого после удаления
 
 components:
   schemas:
@@ -133,26 +125,26 @@ components:
         - mark
         - model
         - year
-        - user_ID
+        - user_ID  # все эти поля обязательные!
       properties:
         ID:
           type: integer
-          example: 1
+          example: 1  # пример для тестов
         VIN:
           type: string
-          example: "X12345ABC67890YZ"
+          example: "X12345ABC67890YZ"  # VIN номер
         GOS_number:
           type: string
-          example: "A123BC77"
+          example: "A123BC77"  # гос. номер
         mark:
           type: string
-          example: "Toyota"
+          example: "Toyota"  # марка машины
         model:
           type: string
-          example: "Camry"
+          example: "Camry"  # модель
         year:
           type: integer
-          example: 2021
+          example: 2021  # год выпуска
         user_ID:
           type: integer
-          example: 101
+          example: 101  # ID владельца
