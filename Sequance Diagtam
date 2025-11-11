@@ -1,0 +1,47 @@
+@startuml
+actor "ЧЕЛОВЕК" as Client
+participant "ПРИЛОЖЕНИЕ" as App
+participant "API" as API
+participant "БАЗА ДАННЫХ" as DB
+participant "ПЛАТЕЖНАЯ СИСТЕМА" as Payment
+participant "1С" as System1C
+
+Client -> App: Выбирает услугу
+App -> API: Запрос списка услуг
+API -> DB: Получить услуги
+DB -> API: Список услуг
+API -> App: Передает услуги
+App -> Client: Показывает услуги
+
+Client -> App: Выбирает дату и время
+App -> API: Ищет свободные мойки
+API -> DB: Проверить расписание
+DB -> API: Свободные мойки
+API -> App: Список моек 
+App -> Client: Показывает мойки
+
+Client -> App: Выбирает мойку
+App -> API: Создать запись
+API -> DB: Забронировать время
+DB -> API: Подтверждение брони
+
+API -> System1C: Создать документ заказа
+System1C -> API: Номер документа
+API -> App: Подтверждение записи
+App -> Client: "Записан! № заказа: XXX"
+
+== ОПЛАТА ==
+
+Client -> App: Оплачивает заказ
+App -> Payment: Процесс оплаты
+Payment -> App: Успех оплаты
+App -> API: Подтвердить оплату
+API -> Payment: Проверить платеж
+Payment -> API: Подтверждение
+
+API -> System1C: Обновить статус оплаты
+System1C -> API: Подтверждение
+API -> App: Оплата подтверждена
+App -> Client: "Оплата прошла успешно!"
+
+@enduml
