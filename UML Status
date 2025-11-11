@@ -34,9 +34,6 @@ completed --> finished : Услуга оказана
 
 paid --> finished : Завершение обслуживания
 
-cancelled --> [*]
-finished --> [*]
-
 note right of draft
   Первоначальное состояние
   заказа
