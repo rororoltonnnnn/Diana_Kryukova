@@ -44,3 +44,5 @@ note left of created
   и ожидает выполнения
 end note
 @enduml
+
+<img width="726" height="689" alt="image" src="https://github.com/user-attachments/assets/6bd00e1b-01d2-4746-b57c-b54903028275" />
